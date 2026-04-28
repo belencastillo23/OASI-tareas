@@ -624,7 +624,7 @@ async function saveData() {
     );
     if (r0.ok) { const d0 = await r0.json(); sha = d0.sha; }
 
-    const body = { message: 'update tasks', content: btoa(unescape(encodeURIComponent(JSON.stringify(tasks, null, 2)))) };
+    const body = { message: 'update tasks', content: btoa(encodeURIComponent(JSON.stringify(tasks, null, 2)).replace(/%([0-9A-F]{2})/g, (_, p1) => String.fromCharCode(parseInt(p1, 16)))) };
     if (sha) body.sha = sha;
 
     const r = await fetch(
